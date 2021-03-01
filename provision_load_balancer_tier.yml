@@ -4,11 +4,6 @@
   hosts: load_balancers
   gather_facts: false 
   become: true
-
-  vars:
-    load_balancer_packages:
-      - haproxy
-
   tags:
     - load_balancers
 
@@ -21,7 +16,7 @@
 
     - name: Configure haproxy load balancing
       template:
-        src: haproxy.cfg.j2
+        src: templates/haproxy.cfg.j2
         dest: /etc/haproxy/haproxy.cfg
       notify: restart_haproxy
 
