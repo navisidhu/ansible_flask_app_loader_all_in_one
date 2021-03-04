@@ -1,0 +1,16 @@
+---
+
+- name: Fetch Servers
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Fetch Openstack Servers
+      os_server_info:
+        cloud: openstack
+        region_name: regionOne
+      register: servers
+
+    - name: Debug Results
+      debug:
+        var: "{{ servers }}"
