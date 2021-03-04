@@ -11,6 +11,21 @@
         region_name: regionOne
       register: servers
 
-    - name: Debug Results
-      debug:
-        var: servers
+    # - name: Debug Results
+    #   debug:
+    #     var: servers
+
+    - name: Add Server
+      add_host:
+        name: "{{ item.public_v4 }}"
+        hostname: "{{ item.name }}"
+        ansible_user: cloud-user
+        ansible_ssh_private_key_file: "~/.ssh/test_id_rsa"
+        groups:
+          - "{{ item.metadata.group }}"
+          - "{{ item.metadata.deployment_name }}"
+      loop: "{{ servers.openstack_servers }}"
+
+- import_playbook: provision_database_tier.yml
+- import_playbook: provision_load_balancer_tier.yml
+- import_playbook: provision_app_tier.yml
