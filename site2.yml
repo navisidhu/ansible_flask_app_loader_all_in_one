@@ -26,11 +26,13 @@
       loop: "{{ servers.openstack_servers }}"
 
 - name: Subscription
-  redhat_subscription:
-    state: present
-    activationkey: AnsibleTraining
-    org_id: 13572854
-    auto_attach: yes
+  hosts: all
+  tasks:
+    redhat_subscription:
+      state: present
+      activationkey: AnsibleTraining
+      org_id: 13572854
+      auto_attach: yes
 
 - import_playbook: provision_database_tier.yml
 - import_playbook: provision_load_balancer_tier.yml
