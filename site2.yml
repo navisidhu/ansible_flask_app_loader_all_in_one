@@ -13,4 +13,4 @@
 
     - name: Debug Results
       debug:
-        var: "{{ servers }}"
+        var: servers
